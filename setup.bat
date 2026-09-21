@@ -1,16 +1,13 @@
 @echo off
 setlocal
 cd /d "%~dp0"
-if not exist ".venv\Scripts\python.exe" (
-  if exist "C:\Python313\python.exe" (
-    "C:\Python313\python.exe" -m venv .venv
-  ) else (
-    py -3.13 -m venv .venv
-  )
+where uv >nul 2>nul
+if errorlevel 1 (
+  echo uv is not installed or is not on PATH.
+  echo Install uv from https://docs.astral.sh/uv/getting-started/installation/
+  pause
+  exit /b 1
 )
-if errorlevel 1 exit /b 1
-".venv\Scripts\python.exe" -m pip install --upgrade pip
-if errorlevel 1 exit /b 1
-".venv\Scripts\python.exe" -m pip install -r requirements-dev.txt
+uv sync --extra test
 if errorlevel 1 exit /b 1
 echo Setup complete. Start with run.bat.

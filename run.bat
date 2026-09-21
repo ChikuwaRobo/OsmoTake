@@ -1,10 +1,10 @@
 @echo off
 setlocal
 cd /d "%~dp0"
-if not exist ".venv\Scripts\python.exe" (
-  echo .venv is not found. Run setup.bat first.
+where uv >nul 2>nul
+if errorlevel 1 (
+  echo uv is not installed or is not on PATH. Run setup.bat after installing uv.
   pause
   exit /b 1
 )
-".venv\Scripts\python.exe" -m osmo_ble_ctrl
-
+uv run osmo-ble-ctrl

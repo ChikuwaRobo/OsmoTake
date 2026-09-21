@@ -2,11 +2,20 @@
 
 Windows PCから、電源が入っているDJI Osmo Nano 1台の録画開始・停止をBLEで操作する小さなツールです。Wi-Fi転送、電源OFF状態からのwake、他のDJIカメラは対象にしていません。
 
+## uvでのセットアップと起動
+
+このプロジェクトは`uv`で依存関係と専用の`.venv`を管理します。`run.bat`、または次のどちらかのコマンドで起動できます。`uv run`はロックファイルに従って環境を自動同期するため、事前のセットアップは不要です。あらかじめ依存関係を同期しておきたい場合は、任意で`setup.bat`を実行してください。
+
+```powershell
+uv run osmo-ble-ctrl
+uv run python -m osmo_ble_ctrl
+```
+
 ## セットアップ
 
 Windows 11、Bluetooth LEアダプター、Python 3.13を想定しています。リポジトリ内に専用の`.venv`を作るため、他のPythonプロジェクトには影響しません。
 
-1. `setup.bat`をダブルクリックします。
+1. （任意）事前に依存関係を同期する場合は`setup.bat`をダブルクリックします。
 2. Osmo Nanoの電源を入れます。
    初回承認ではNanoをVision Dockへ取り付け、画面を操作できる状態にしてください。DJI MimoはNanoとの接続を切っておきます。
 3. `run.bat`をダブルクリックします。
@@ -30,7 +39,7 @@ Windows 11、Bluetooth LEアダプター、Python 3.13を想定しています�
 
 ```powershell
 .\setup.bat
-.\.venv\Scripts\python.exe -m pytest
+uv run --extra test pytest
 ```
 
 通信プロトコルの根拠とライセンスは[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)に記載しています。実機を使わないテストでは、DUML CRC、通知の分割・連結・破損、ペアリング分岐、録画コマンド、state pushの保守的な判定を検証します。
