@@ -46,3 +46,7 @@ uv run --extra test pytest
 ```
 
 通信プロトコルの根拠とライセンスは[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)に記載しています。実機を使わないテストでは、DUML CRC、通知の分割・連結・破損、ペアリング分岐、録画コマンド、state pushの保守的な判定を検証します。
+
+## Android版
+
+Game ControllerのWebSocket状態とOsmo Nanoの録画を連動するAndroid版は[`android/README.md`](android/README.md)を参照してください。PC版とは別のGradleプロジェクトで、PC版の起動方法は変わりません。
